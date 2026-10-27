@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spacecast for Google Chat</title>
+  <meta name="description" content="Spacecast posts filtered Jira notifications into Google Chat spaces. Built by EAN Solutions LLC." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <nav>
+    <a class="brand" href="./">Spacecast</a>
+    <a href="#support">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+
+  <h1>Google Chat notifications for Jira</h1>
+  <p class="lede">Spacecast sends the Jira updates your team cares about into the Google Chat spaces where it already works. It replaces Google's retired "Google Chat for Jira Cloud" app.</p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><strong>Rules per space.</strong> Choose projects, event types (created, moved, assigned, commented, mentioned), statuses, and an optional JQL filter.</li>
+    <li><strong>People filters.</strong> Notify only when the assignee, reporter, a watcher, or a mentioned user matches.</li>
+    <li><strong>One thread per issue.</strong> Updates to the same issue reply in the same Chat thread.</li>
+    <li><strong>Project self-serve.</strong> Project admins manage their own project's rules, and site admins can turn that off.</li>
+    <li><strong>Delivery log.</strong> See what was sent and anything that failed over the last 7 days.</li>
+  </ul>
+
+  <h2>How it works</h2>
+  <p>Spacecast is built on Atlassian Forge. Its configuration and delivery log are stored in Atlassian's Forge hosted storage for your site, and it sends messages only to the Google Chat webhooks you add. EAN Solutions does not run its own servers or databases for Spacecast. See the <a href="privacy.html">privacy policy</a> for the details.</p>
+
+  <h2>Getting started</h2>
+  <ol>
+    <li>Install Spacecast from the Atlassian Marketplace.</li>
+    <li>In Google Chat, open a space, then <em>Apps &amp; integrations &gt; Webhooks</em>, and create a webhook.</li>
+    <li>In Jira, go to <em>Settings &gt; Apps &gt; Spacecast for Google Chat</em>, add a rule, paste the webhook URL, and press <em>Test</em>.</li>
+  </ol>
+  <p>Your Google Workspace admin must allow incoming webhooks for Google Chat.</p>
+
+  <div class="card" id="support">
+    <h2 style="margin-top:0">Support</h2>
+    <p>Email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a>. We aim to reply within 2 business days (US Eastern time). Please include your Jira site URL and, if a message did not arrive, the issue key and time. Never send us a webhook URL: it contains a secret key.</p>
+  </div>
+
+  <footer>
+    &copy; 2026 EAN Solutions LLC. Spacecast is not affiliated with or endorsed by Google or Atlassian. Google Chat is a trademark of Google LLC. Jira is a trademark of Atlassian.
+  </footer>
+</main>
+</body>
+</html>

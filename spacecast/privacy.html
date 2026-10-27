@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spacecast Privacy Policy</title>
+  <meta name="description" content="How Spacecast for Google Chat handles Jira and Google Chat data." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <nav>
+    <a class="brand" href="./">Spacecast</a>
+    <a href="./#support">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: October 27, 2026</p>
+
+  <p>This policy explains how EAN Solutions LLC ("EAN Solutions," "we," "us") handles data in Spacecast for Google Chat ("Spacecast"), an app for Atlassian Jira Cloud distributed through the Atlassian Marketplace. It applies to the app and to this website.</p>
+
+  <div class="card">
+    <strong>In short:</strong> Spacecast runs entirely on Atlassian Forge. It stores only its own configuration and a 7-day delivery log, in Atlassian's hosted storage for your Jira site. It sends issue updates only to the Google Chat webhooks your admins add. We do not run our own servers or databases for Spacecast, we do not sell data, and we do not use your Jira content for advertising, analytics, or AI training.
+  </div>
+
+  <h2>1. Our role</h2>
+  <p>The organization that installs Spacecast (the "customer") decides what Spacecast sends and where. For personal data in Jira content, the customer is the controller and we act as a processor (or "service provider") on its behalf. Atlassian hosts and runs the app on its Forge platform. Google receives the messages the customer chooses to send to Google Chat.</p>
+
+  <h2>2. Data Spacecast processes</h2>
+  <table>
+    <thead><tr><th>Data</th><th>Why</th><th>Where and how long</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Rule settings</strong>: rule names, project keys, event types, statuses, JQL filters, and the Atlassian account IDs chosen in people filters; plus site settings</td>
+        <td>To decide which Jira events go to which Chat space</td>
+        <td>Forge hosted storage for your site, until the rule is deleted or the app is uninstalled</td>
+      </tr>
+      <tr>
+        <td><strong>Google Chat webhook URLs</strong></td>
+        <td>To post messages to your Chat spaces</td>
+        <td>Forge encrypted secret storage. They are never shown again in the app after saving. Kept until the rule is deleted or the app is uninstalled</td>
+      </tr>
+      <tr>
+        <td><strong>Delivery log</strong>: rule name and ID, issue key, event type, success or failure, HTTP status, a short error message, and a timestamp</td>
+        <td>So admins can confirm delivery and troubleshoot</td>
+        <td>Forge hosted storage, deleted automatically after 7 days</td>
+      </tr>
+      <tr>
+        <td><strong>Jira event data</strong>: issue key, summary, type, and status; status changes; comment text; the display name of the person who acted; and the account IDs of the assignee, reporter, watchers, and mentioned users</td>
+        <td>To match rules and build the Chat message</td>
+        <td>Processed in memory while handling the event and not stored by Spacecast. The parts included in a message are sent to Google Chat (see section 3)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>A Chat message contains the issue key, summary, issue type, status or status change, the actor's display name, up to 600 characters of comment text, and a link back to the issue. Spacecast does not read attachments.</p>
+
+  <h2>3. Who receives data</h2>
+  <ul>
+    <li><strong>Google.</strong> Messages are sent only to the Google Chat webhook URLs your admins configure (at chat.googleapis.com). Anyone in that Chat space can read them. Google handles them under your organization's Google Workspace agreement and <a href="https://policies.google.com/privacy">Google's privacy policy</a>. Choose the spaces and filters with that in mind.</li>
+    <li><strong>Atlassian.</strong> Atlassian hosts the app, its storage, and its runtime under the <a href="https://www.atlassian.com/legal/privacy-policy">Atlassian Privacy Policy</a>. Spacecast's network access is limited by its manifest to chat.googleapis.com.</li>
+    <li><strong>No one else.</strong> We do not sell, rent, or share data with advertisers, data brokers, or other third parties. We may disclose information if required by law.</li>
+  </ul>
+
+  <h2>4. What we, EAN Solutions, can see</h2>
+  <p>We cannot browse your Jira site or your app storage. Through Atlassian we receive:</p>
+  <ul>
+    <li><strong>Operational metrics and logs</strong> for the app, such as invocation counts, errors, and log lines. Our log lines contain the event type and issue key, not issue content.</li>
+    <li><strong>Licensing information</strong> from the Atlassian Marketplace, such as your site URL, license tier, and the billing and technical contacts you gave Atlassian. We use it to provide support, send service notices, and keep business and tax records.</li>
+    <li><strong>Anything you send us</strong> in a support request. Please do not send webhook URLs.</li>
+  </ul>
+  <p>The app itself sets no cookies and uses no tracking or analytics. This website does not use cookies or analytics either, although its host (GitHub Pages) may keep standard server logs.</p>
+
+  <h2>5. Security</h2>
+  <ul>
+    <li>Data stays inside Atlassian's Forge platform, with encryption in transit and at rest provided by Atlassian.</li>
+    <li>Webhook URLs are kept in encrypted secret storage and never returned to the browser.</li>
+    <li>Only Jira site admins can manage Spacecast. Project admins can manage rules for their own project only, and site admins can turn that off.</li>
+    <li>The app requests only the Jira scopes it needs: read Jira work, read Jira users, and app storage.</li>
+  </ul>
+
+  <h2>6. Retention and deletion</h2>
+  <p>Delivery log entries expire after 7 days. Deleting a rule deletes its settings and webhook URL. When Spacecast is uninstalled, Atlassian deletes the app's stored data for that site under its Forge data retention rules. Messages already posted in Google Chat stay there until deleted in Google Chat. Licensing records from the Marketplace are kept as long as needed for legal, tax, and accounting purposes.</p>
+
+  <h2>7. Your rights</h2>
+  <p>Depending on where you live, you may have rights to access, correct, delete, or object to the processing of your personal data. Because Spacecast's data lives in your organization's Jira site, please contact your Jira administrator first. We will help your organization respond to any request. You can also email us at the address below.</p>
+
+  <h2>8. International transfers</h2>
+  <p>EAN Solutions is based in the United States. App data is stored by Atlassian, and messages are delivered to Google, in the locations those providers use. Where required, we rely on appropriate safeguards such as Standard Contractual Clauses.</p>
+
+  <h2>9. Children</h2>
+  <p>Spacecast is a business tool and is not directed to children under 16.</p>
+
+  <h2>10. Changes</h2>
+  <p>We will post changes on this page and update the date above. For material changes, we will also notify license contacts.</p>
+
+  <h2>11. Contact</h2>
+  <p>EAN Solutions LLC<br />Email: <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a></p>
+
+  <footer>
+    &copy; 2026 EAN Solutions LLC &middot; <a href="terms.html">Terms of Use</a>
+  </footer>
+</main>
+</body>
+</html>
