@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spacecast documentation</title>
+  <meta name="description" content="How to set up and use Spacecast to send Jira notifications to Google Chat spaces." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <nav>
+    <a class="brand" href="./">Spacecast</a>
+    <a href="docs.html">Docs</a>
+    <a href="./#support">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+
+  <h1>Spacecast documentation</h1>
+  <p class="lede">Spacecast posts Jira updates into Google Chat spaces through Google Chat incoming webhooks. This guide covers setup, every rule option, the admin settings, and troubleshooting.</p>
+
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#webhook">Create a Google Chat webhook</a></li>
+    <li><a href="#first-rule">Create your first rule</a></li>
+    <li><a href="#rule-options">Rule options</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#messages">What messages look like</a></li>
+    <li><a href="#project-admins">Project admin self-serve</a></li>
+    <li><a href="#delivery-log">Delivery log</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#data">Data and security</a></li>
+    <li><a href="#uninstall">Uninstall</a></li>
+  </ol>
+
+  <h2 id="requirements">1. Requirements</h2>
+  <ul>
+    <li>Jira Cloud. You need to be a Jira site admin to install Spacecast and to open its settings page.</li>
+    <li>A Google Workspace account with Google Chat. Your Workspace admin must allow incoming webhooks (Google Admin console &gt; Apps &gt; Google Workspace &gt; Google Chat &gt; Chat apps settings).</li>
+    <li>Permission to add webhooks to the Google Chat space you want to notify.</li>
+  </ul>
+
+  <h2 id="install">2. Install</h2>
+  <ol>
+    <li>Open Spacecast on the Atlassian Marketplace and choose <em>Get it now</em>, or in Jira go to <em>Settings &gt; Apps &gt; Explore more apps</em> and search for Spacecast.</li>
+    <li>Approve the requested permissions. Spacecast reads Jira issue and user information so it can match your rules and build messages.</li>
+    <li>After installing, go to <em>Settings &gt; Apps &gt; Spacecast for Google Chat</em>.</li>
+  </ol>
+  <p>Spacecast is free for sites with up to 10 users. Larger sites need an active subscription. If a site is not licensed, the settings page shows a banner and no notifications are sent.</p>
+
+  <h2 id="webhook">3. Create a Google Chat webhook</h2>
+  <ol>
+    <li>In Google Chat, open the space that should receive Jira updates.</li>
+    <li>Open the space name menu and choose <em>Apps &amp; integrations</em>, then <em>Webhooks</em> (or <em>Add webhooks</em>).</li>
+    <li>Name the webhook <em>Spacecast</em> so messages are clearly labeled. Optionally set the avatar URL to <code>https://ean-solutions.com/spacecast/logo.png</code>.</li>
+    <li>Save, then copy the webhook URL. It starts with <code>https://chat.googleapis.com/v1/spaces/</code>.</li>
+  </ol>
+  <p><strong>Treat the webhook URL like a password.</strong> Anyone with it can post into the space. Spacecast keeps it in encrypted Forge secret storage and never shows it again after you save. Never send it to support.</p>
+
+  <h2 id="first-rule">4. Create your first rule</h2>
+  <p>A rule connects a set of Jira events to one Google Chat space.</p>
+  <ol>
+    <li>On the Spacecast settings page, choose <em>Add rule</em> (or <em>From template</em>, see <a href="#templates">templates</a>).</li>
+    <li>Give the rule a name, for example <em>Team space: bugs</em>.</li>
+    <li>Paste the Google Chat webhook URL.</li>
+    <li>Choose which events should send a message and, optionally, narrow it with projects, statuses, people, or JQL.</li>
+    <li>Save, then press <em>Test</em>. A test card should appear in the space within a few seconds.</li>
+  </ol>
+  <p>From then on, matching Jira updates appear in the space, usually within seconds.</p>
+
+  <h2 id="rule-options">5. Rule options</h2>
+  <p>All filters in a rule must match for a message to be sent. Leave a filter blank to match everything.</p>
+
+  <h3>Send a message when</h3>
+  <ul>
+    <li><strong>Issue created</strong>: a new issue is created.</li>
+    <li><strong>Status changed</strong>: an issue moves to a different status.</li>
+    <li><strong>Assignee changed</strong>: an issue is assigned or unassigned.</li>
+    <li><strong>Comment added</strong>: someone comments on an issue. Up to 600 characters of the comment are included.</li>
+    <li><strong>Someone mentioned</strong>: a user is @mentioned in a comment or description.</li>
+    <li><strong>Other field updates</strong>: any other field edit, such as priority or summary.</li>
+  </ul>
+
+  <h3>Project keys</h3>
+  <p>Comma separated project keys, such as <code>ABC, OPS</code>. Blank means all projects.</p>
+
+  <h3>Only status changes into</h3>
+  <p>Comma separated status names, such as <code>In Review, Done</code>. Applies to <em>Status changed</em> events. Blank means any status.</p>
+
+  <h3>Only when these people are involved</h3>
+  <p>Pick one or more people, then choose how they must be involved: <strong>Assignee</strong>, <strong>Reporter</strong>, <strong>Mentioned</strong>, or <strong>Watcher</strong>. For personal notifications, pick yourself and point the rule at a Google Chat space that only you are in.</p>
+
+  <h3>JQL filter</h3>
+  <p>Any JQL that the issue must match, for example <code>issuetype = Bug AND priority in (High, Highest)</code>. Use it for anything the other filters do not cover, such as components, labels, or custom fields.</p>
+
+  <h3>One thread per issue</h3>
+  <p>On by default. The first message for an issue starts a thread, and later updates to the same issue reply in that thread, so the space stays readable. Turn it off to post every update as a new message.</p>
+
+  <h3>Compact messages</h3>
+  <p>Sends a single line of text instead of a card: the linked issue key, the summary, and who changed it. Useful for busy spaces.</p>
+
+  <h2 id="templates">6. Templates</h2>
+  <p>Choose <em>From template</em> on the settings page to prefill a rule:</p>
+  <ul>
+    <li><strong>Team space</strong>: new issues, status changes, and comments, one thread per issue.</li>
+    <li><strong>Just me</strong>: only issues you are assigned to, mentioned in, or watching. Use a space with only you in it.</li>
+    <li><strong>Finished work</strong>: only when issues move to Done.</li>
+  </ul>
+  <p>You still add the webhook URL and can change any option before saving.</p>
+
+  <h2 id="messages">7. What messages look like</h2>
+  <p>Each message is a Google Chat card. The header shows the issue key and summary, and a line such as <em>Ana moved this bug</em>. The body shows the status (or the change, such as <em>In Progress &rarr; Done</em>), the comment text for comments (up to 600 characters), and an <em>Open in Jira</em> button.</p>
+
+  <h2 id="project-admins">8. Project admin self-serve</h2>
+  <p>The setting <em>Let project admins manage rules for their own projects</em> is on by default. Project admins then find Spacecast under <em>Project settings &gt; Spacecast for Google Chat</em> and can create and edit rules that only cover their project. The rule list shows who manages each rule: <em>Site admin</em> or <em>&lt;KEY&gt; admins</em>. Site admins always see and can edit every rule. When a site admin turns the setting off, the project page only says that Spacecast is managed by the Jira site admin.</p>
+
+  <h2 id="delivery-log">9. Delivery log</h2>
+  <p>The <em>Recent deliveries</em> table on the settings page lists messages Spacecast sent or failed to send over the last 7 days, with the rule, issue, time, and result. Entries are removed automatically after 7 days.</p>
+
+  <h2 id="troubleshooting">10. Troubleshooting</h2>
+  <h3>Test works but real updates do not arrive</h3>
+  <ul>
+    <li>Check the rule's filters. Every filter must match: event type, project key, status, people, and JQL.</li>
+    <li>Check that the JQL is valid by running it in Jira issue search.</li>
+    <li>Look in the delivery log. If nothing is listed, the update did not match any rule.</li>
+    <li>Check that the site is licensed. An unlicensed site shows a banner on the settings page.</li>
+  </ul>
+  <h3>Test fails</h3>
+  <ul>
+    <li>Make sure the URL is the full webhook URL copied from Google Chat.</li>
+    <li>If the webhook was deleted in Google Chat, create a new one and edit the rule to paste the new URL.</li>
+    <li>Ask your Workspace admin to confirm incoming webhooks are allowed for your organization.</li>
+  </ul>
+  <h3>Some messages are delayed during busy periods</h3>
+  <p>Google Chat limits how fast one webhook can receive messages. When it asks Spacecast to slow down, Spacecast retries automatically, so messages may arrive a little later but are not lost or duplicated.</p>
+  <h3>Still stuck?</h3>
+  <p>Email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a> with your Jira site URL, the rule name, and, if a message did not arrive, the issue key and time. Do not include the webhook URL.</p>
+
+  <h2 id="data">11. Data and security</h2>
+  <p>Spacecast runs entirely on Atlassian Forge. Rules and the delivery log are stored in Forge hosted storage for your site, and webhook URLs are kept in encrypted Forge secret storage. EAN Solutions does not run its own servers or databases for Spacecast. Messages go only to <code>chat.googleapis.com</code>, to the webhooks you configure. See the <a href="privacy.html">privacy policy</a> and <a href="dpa.html">data processing addendum</a>.</p>
+
+  <h2 id="uninstall">12. Uninstall</h2>
+  <p>In Jira, go to <em>Settings &gt; Apps &gt; Manage apps</em>, find Spacecast, and choose <em>Uninstall</em>. Notifications stop immediately, and Forge deletes the app's stored data under Atlassian's retention policy. You can also delete the webhooks in Google Chat.</p>
+
+  <footer>
+    &copy; 2026 EAN Solutions LLC. Spacecast is not affiliated with or endorsed by Google or Atlassian. Google Chat and Google Workspace are trademarks of Google LLC. Atlassian, Jira, and Forge are trademarks of Atlassian Pty Ltd.
+  </footer>
+</main>
+</body>
+</html>
