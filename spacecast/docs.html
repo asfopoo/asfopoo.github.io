@@ -31,6 +31,7 @@
     <li><a href="#messages">What messages look like</a></li>
     <li><a href="#project-admins">Project admin self-serve</a></li>
     <li><a href="#delivery-log">Delivery log</a></li>
+    <li><a href="#personal">Personal notifications</a></li>
     <li><a href="#troubleshooting">Troubleshooting</a></li>
     <li><a href="#data">Data and security</a></li>
     <li><a href="#uninstall">Uninstall</a></li>
@@ -102,6 +103,14 @@
   <h3>Compact messages</h3>
   <p>Sends a single line of text instead of a card: the linked issue key, the summary, and who changed it. Useful for busy spaces.</p>
 
+  <h3>Delivery</h3>
+  <ul>
+    <li><strong>Right away</strong> (default): one message per update.</li>
+    <li><strong>Hourly digest</strong>: at most one message an hour, listing each issue once with what changed (created, moved, assigned, comments).</li>
+    <li><strong>Daily digest</strong>: one message a day at the hour and time zone you choose.</li>
+  </ul>
+  <p>Digests include the issue key, summary, and status changes, but never comment text. <em>One thread per issue</em> and <em>Compact messages</em> apply only to messages sent right away. A digest lists up to 30 issues and says how many more changed.</p>
+
   <h2 id="templates">6. Templates</h2>
   <p>Choose <em>From template</em> on the settings page to prefill a rule:</p>
   <ul>
@@ -120,7 +129,19 @@
   <h2 id="delivery-log">9. Delivery log</h2>
   <p>The <em>Recent deliveries</em> table on the settings page lists messages Spacecast sent or failed to send over the last 7 days, with the rule, issue, time, and result. Entries are removed automatically after 7 days.</p>
 
-  <h2 id="troubleshooting">10. Troubleshooting</h2>
+  <h2 id="personal">10. Personal notifications</h2>
+  <p>Each person can get their own updates as direct messages from the Spacecast app in Google Chat, without setting up a space or webhook.</p>
+  <ol>
+    <li>In Jira, open <em>Apps &gt; Spacecast: My notifications</em>.</li>
+    <li>Click <em>Connect Google Chat</em> and sign in with your Google Workspace account. Google asks to see your email address and to create conversations in Google Chat; Spacecast uses these once, to open your direct message with the app.</li>
+    <li>Choose what to get: issues assigned to you, mentions, and changes or comments on issues you watch. Optionally limit to certain projects, issue types, and priorities, then click <em>Save</em>.</li>
+    <li>Click <em>Send a test DM</em> to check that messages arrive.</li>
+  </ol>
+  <p>You never get a message about your own changes or about issues you cannot view, and the text of restricted or internal comments is never shown. To stop, click <em>Disconnect</em>.</p>
+  <p><strong>Site admins:</strong> the setting <em>Let people get their own notifications as Google Chat DMs</em> turns this on or off for the site. The <em>Personal notifications</em> table on the settings page lists who has connected, and <em>Remove</em> deletes a person's link. Your Google Workspace admin may need to allow the Spacecast Chat app.</p>
+  <p>Personal notifications are rolling out as an app update that a Jira site admin approves.</p>
+
+  <h2 id="troubleshooting">11. Troubleshooting</h2>
   <h3>Test works but real updates do not arrive</h3>
   <ul>
     <li>Check the rule's filters. Every filter must match: event type, project key, status, people, and JQL.</li>
@@ -139,10 +160,10 @@
   <h3>Still stuck?</h3>
   <p>Email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a> with your Jira site URL, the rule name, and, if a message did not arrive, the issue key and time. Do not include the webhook URL.</p>
 
-  <h2 id="data">11. Data and security</h2>
-  <p>Spacecast runs entirely on Atlassian Forge. Rules and the delivery log are stored in Forge hosted storage for your site, and webhook URLs are kept in encrypted Forge secret storage. EAN Solutions does not run its own servers or databases for Spacecast. Messages go only to <code>chat.googleapis.com</code>, to the webhooks you configure. See the <a href="privacy.html">privacy policy</a> and <a href="dpa.html">data processing addendum</a>.</p>
+  <h2 id="data">12. Data and security</h2>
+  <p>Spacecast runs entirely on Atlassian Forge. Rules and the delivery log are stored in Forge hosted storage for your site, and webhook URLs are kept in encrypted Forge secret storage. EAN Solutions does not run its own servers or databases for Spacecast. Space messages go only to <code>chat.googleapis.com</code>, to the webhooks you configure. Personal notifications are sent through the Google Chat API as the Spacecast Chat app, to people who connect their Google account. Digest rules keep a short summary of each update (no comment text) until the digest is sent, for at most 8 days. See the <a href="privacy.html">privacy policy</a> and <a href="dpa.html">data processing addendum</a>.</p>
 
-  <h2 id="uninstall">12. Uninstall</h2>
+  <h2 id="uninstall">13. Uninstall</h2>
   <p>In Jira, go to <em>Settings &gt; Apps &gt; Manage apps</em>, find Spacecast, and choose <em>Uninstall</em>. Notifications stop immediately, and Forge deletes the app's stored data under Atlassian's retention policy. You can also delete the webhooks in Google Chat.</p>
 
   <footer>

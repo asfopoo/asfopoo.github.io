@@ -25,12 +25,14 @@
     <li><strong>Rules per space.</strong> Choose projects, event types (created, moved, assigned, commented, mentioned), statuses, and an optional JQL filter.</li>
     <li><strong>People filters.</strong> Notify only when the assignee, reporter, a watcher, or a mentioned user matches.</li>
     <li><strong>One thread per issue.</strong> Updates to the same issue reply in the same Chat thread.</li>
+    <li><strong>Hourly or daily digests.</strong> For busy spaces, a rule can send one summary that lists each issue once with what changed.</li>
+    <li><strong>Personal notifications.</strong> Each person can get their own updates as direct messages from the Spacecast app in Google Chat. <a href="#personal">More below.</a></li>
     <li><strong>Project self-serve.</strong> Project admins manage their own project's rules, and site admins can turn that off.</li>
     <li><strong>Delivery log.</strong> See what was sent and anything that failed over the last 7 days.</li>
   </ul>
 
   <h2>How it works</h2>
-  <p>Spacecast is built on Atlassian Forge. Its configuration and delivery log are stored in Atlassian's Forge hosted storage for your site, and it sends messages only to the Google Chat webhooks you add. EAN Solutions does not run its own servers or databases for Spacecast. See the <a href="privacy.html">privacy policy</a> for the details.</p>
+  <p>Spacecast is built on Atlassian Forge. Its configuration and delivery log are stored in Atlassian's Forge hosted storage for your site. It sends space messages to the Google Chat webhooks you add, and personal notifications through the Spacecast Chat app to people who connect it. EAN Solutions does not run its own servers or databases for Spacecast. See the <a href="privacy.html">privacy policy</a> for the details.</p>
 
   <h2>Getting started</h2>
   <ol>
@@ -39,6 +41,23 @@
     <li>In Jira, go to <em>Settings &gt; Apps &gt; Spacecast for Google Chat</em>, add a rule, paste the webhook URL, and press <em>Test</em>.</li>
   </ol>
   <p>Your Google Workspace admin must allow incoming webhooks for Google Chat. See the <a href="docs.html">full documentation</a> for every rule option and troubleshooting.</p>
+
+  <h2 id="personal">Personal notifications in Google Chat</h2>
+  <p>Besides posting to spaces, Spacecast can send each person their own Jira updates as direct messages from the Spacecast app in Google Chat:</p>
+  <ul>
+    <li>issues assigned to them</li>
+    <li>mentions of them in comments and descriptions</li>
+    <li>status changes and comments on issues they watch</li>
+  </ul>
+  <p>Each person chooses which of these they want and can limit them to certain projects, issue types, and priorities. Spacecast never messages someone about their own changes, only sends messages about issues the person can view in Jira, and never shows the text of restricted or internal comments. A Jira site admin can turn personal notifications off for the whole site.</p>
+  <h3>Connecting your Google account</h3>
+  <p>In Jira, open <em>Apps &gt; Spacecast: My notifications</em> and click <em>Connect Google Chat</em>. Google asks you to let Spacecast:</p>
+  <ul>
+    <li><strong>See your email address</strong>, so the page can show which Google account is linked.</li>
+    <li><strong>Create conversations in Google Chat</strong>, used once to open (or find) your direct message with the Spacecast app.</li>
+  </ul>
+  <p>That is the only time Spacecast uses your Google sign-in. It does not request offline access, and it never reads your spaces, messages, or contacts. After connecting, the Spacecast app sends your notifications into that direct message on its own. Spacecast keeps only your Google user ID, email address, and the direct message's ID, linked to your Jira account.</p>
+  <p>To stop, click <em>Disconnect</em> on the same page; this deletes the link. You can also remove Spacecast under <em>Third-party apps and services</em> in your Google account. Personal notifications are rolling out to Jira sites as an app update that a site admin approves. See the <a href="privacy.html">privacy policy</a> for how Google user data is handled.</p>
 
   <div class="card" id="support">
     <h2 style="margin-top:0">Support</h2>
