@@ -18,7 +18,7 @@
   </nav>
 
   <h1>Data Processing Addendum</h1>
-  <p class="updated">Last updated: October 28, 2026</p>
+  <p class="updated">Last updated: November 10, 2026</p>
 
   <p>This Data Processing Addendum ("DPA") forms part of the <a href="terms.html">Spacecast Terms of Use</a> (the "Terms") between EAN Solutions LLC ("Processor," "we," "us") and the organization that installs or uses Spacecast for Google Chat (the "Customer"). It applies automatically whenever we process Customer Personal Data on the Customer's behalf through Spacecast. No signature is needed. If your organization wants a countersigned copy, email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a>.</p>
 
@@ -26,16 +26,16 @@
   <p>"Data Protection Laws" means all laws that apply to the processing of Customer Personal Data under the Terms, including the EU General Data Protection Regulation 2016/679 ("GDPR"), the UK GDPR and Data Protection Act 2018, the Swiss Federal Act on Data Protection, and the California Consumer Privacy Act as amended ("CCPA"). "Customer Personal Data" means personal data in Jira content or app configuration that Spacecast processes for the Customer. "Controller," "processor," "data subject," "personal data breach," and "processing" have the meanings given in the GDPR. "Sub-processor" means a third party we engage to process Customer Personal Data.</p>
 
   <h2>2. Roles and instructions</h2>
-  <p>The Customer is the controller (or a processor acting for its own controllers) and we are a processor. We will process Customer Personal Data only on the Customer's documented instructions. The Terms, this DPA, and the Customer's configuration of Spacecast (its rules, filters, and chosen Google Chat webhooks) are the Customer's complete instructions. We will tell the Customer if we believe an instruction breaks Data Protection Laws. The Customer is responsible for the lawfulness of its instructions and for having a legal basis and any notices needed to send Jira content to Google Chat.</p>
+  <p>The Customer is the controller (or a processor acting for its own controllers) and we are a processor. We will process Customer Personal Data only on the Customer's documented instructions. The Terms, this DPA, and the Customer's configuration of Spacecast (its rules, filters, chosen Google Chat webhooks, and whether personal notifications are allowed), together with the personal notification settings of the Customer's users, are the Customer's complete instructions. We will tell the Customer if we believe an instruction breaks Data Protection Laws. The Customer is responsible for the lawfulness of its instructions and for having a legal basis and any notices needed to send Jira content to Google Chat.</p>
 
   <h2>3. Details of processing</h2>
   <table>
     <tbody>
-      <tr><td><strong>Subject matter and purpose</strong></td><td>Matching Jira events to the Customer's rules and posting notifications to the Google Chat spaces the Customer chooses</td></tr>
+      <tr><td><strong>Subject matter and purpose</strong></td><td>Matching Jira events to the Customer's rules and posting notifications to the Google Chat spaces the Customer chooses; and, where the Customer allows it, sending each connected user the personal direct messages that user chooses</td></tr>
       <tr><td><strong>Duration</strong></td><td>While Spacecast is installed, plus the deletion periods in section 9</td></tr>
       <tr><td><strong>Nature of processing</strong></td><td>Receiving, filtering, formatting, transmitting, and storing for a limited time</td></tr>
-      <tr><td><strong>Data subjects</strong></td><td>Users of the Customer's Jira site and people named in its Jira content</td></tr>
-      <tr><td><strong>Categories of personal data</strong></td><td>Atlassian account IDs, display names, and any personal data in issue summaries or comment text (up to 600 characters per comment)</td></tr>
+      <tr><td><strong>Data subjects</strong></td><td>Users of the Customer's Jira site (including users who connect their Google account for personal notifications) and people named in its Jira content</td></tr>
+      <tr><td><strong>Categories of personal data</strong></td><td>Atlassian account IDs and display names; any personal data in issue summaries, comment text (up to 600 characters per comment), and description previews (up to 300 characters); and, for users who connect personal notifications, Google account email, Google user ID, the identifier of their direct message space with the Spacecast app, and their notification preferences</td></tr>
       <tr><td><strong>Special categories</strong></td><td>None intended. The Customer should not use Spacecast to send special category data</td></tr>
       <tr><td><strong>Frequency</strong></td><td>Continuous, as Jira events occur</td></tr>
     </tbody>
@@ -49,7 +49,7 @@
 
   <h2>6. Sub-processors</h2>
   <p>The Customer authorizes us to use the sub-processors listed in Annex 2. We will give at least 30 days' notice of a new sub-processor by updating this page and emailing the Customer's Marketplace license contacts. The Customer may object on reasonable data protection grounds within that period. If we cannot address the objection, the Customer may uninstall Spacecast, and any prepaid fees for the remaining term will be handled under Atlassian's Marketplace refund policies. We will impose data protection terms on each sub-processor that are at least as protective as this DPA, and we remain responsible for their performance.</p>
-  <p>Google LLC is not our sub-processor. Google receives notifications only because the Customer directs Spacecast to send them to Google Chat webhooks the Customer controls, and Google processes them under the Customer's own Google Workspace agreement.</p>
+  <p>For space notifications sent through Google Chat webhooks, Google LLC is not our sub-processor: Google receives those notifications only because the Customer directs Spacecast to send them to webhooks the Customer controls, and processes them under the Customer's own Google Workspace agreement. For personal notifications, which Spacecast sends through the Google Chat API as the Spacecast Chat app using a Google Cloud project we own, and for the Google sign-in used to connect them, Google LLC is our sub-processor as listed in Annex 2.</p>
 
   <h2>7. Data subject requests</h2>
   <p>Customer Personal Data lives in the Customer's Jira site and Forge storage, which the Customer administers. Taking into account the nature of the processing, we will provide reasonable help to the Customer in responding to data subject requests. If we receive a request directly, we will refer the data subject to the Customer.</p>
@@ -58,7 +58,7 @@
   <p>We will notify the Customer without undue delay, and in any case within 72 hours, after becoming aware of a personal data breach affecting Customer Personal Data. We will provide the information reasonably available to us that the Customer needs to meet its own obligations, and take reasonable steps to contain and remedy the breach.</p>
 
   <h2>9. Deletion</h2>
-  <p>Delivery log entries are deleted automatically after 7 days. Deleting a rule deletes its settings and webhook URL. When Spacecast is uninstalled, Atlassian deletes the app's stored data for that site under its Forge data retention rules. We keep no other copy of Customer Personal Data, except as the law requires.</p>
+  <p>Delivery log entries are deleted automatically after 7 days. Deleting a rule deletes its settings and webhook URL. When a user clicks Disconnect, their personal notification link and preferences are deleted. When Spacecast is uninstalled, Atlassian deletes the app's stored data for that site under its Forge data retention rules. We keep no other copy of Customer Personal Data, except as the law requires.</p>
 
   <h2>10. Assistance and audits</h2>
   <p>We will give the Customer reasonable help with data protection impact assessments and prior consultations, taking into account the nature of the processing and the information available to us. We will make available the information reasonably needed to demonstrate compliance with this DPA, including written answers to security questionnaires. If Data Protection Laws or a regulator require more, the Customer may audit our compliance once a year with at least 30 days' notice, at its own cost, during business hours, and under confidentiality terms. Because Spacecast runs on Atlassian's Forge platform, audits of the hosting environment are covered by Atlassian's own certifications and reports.</p>
@@ -88,11 +88,11 @@
   <h2>Annex 1: Technical and organizational measures</h2>
   <ul>
     <li><strong>Hosting.</strong> Spacecast runs entirely on Atlassian Forge. We operate no servers, databases, or storage of our own for Spacecast.</li>
-    <li><strong>Encryption.</strong> Data is encrypted in transit (TLS) and at rest by Atlassian. Webhook URLs are kept in Forge encrypted secret storage and are never returned to the browser.</li>
-    <li><strong>Network egress.</strong> The app manifest limits outbound requests to chat.googleapis.com.</li>
-    <li><strong>Least privilege.</strong> The app requests only the scopes read:jira-work, read:jira-user, and storage:app.</li>
-    <li><strong>Access control.</strong> Only Jira site admins can manage Spacecast. Project admins can manage rules for their own project only, and site admins can turn that off.</li>
-    <li><strong>Data minimization.</strong> Jira event content is processed in memory and not stored. Comment text sent to Chat is capped at 600 characters. App logs contain the event type and issue key, not issue content.</li>
+    <li><strong>Encryption.</strong> Data is encrypted in transit (TLS) and at rest by Atlassian. Webhook URLs are kept in Forge encrypted secret storage and are never returned to the browser. The Spacecast Chat app's Google service account key is kept in encrypted Forge environment variables. Users' Google sign-in tokens are held by Atlassian's Forge external authentication and are not stored in app storage.</li>
+    <li><strong>Network egress.</strong> The app manifest limits outbound requests to chat.googleapis.com, oauth2.googleapis.com, www.googleapis.com, and accounts.google.com.</li>
+    <li><strong>Least privilege.</strong> The app requests only the Jira scopes read:jira-work, read:jira-user, and storage:app. For personal notifications it requests only the Google scopes openid, userinfo.email, chat.spaces.readonly, and chat.spaces.create from users, and chat.bot for the app itself. It does not read Chat messages.</li>
+    <li><strong>Access control.</strong> Only Jira site admins can manage Spacecast. Project admins can manage rules for their own project only, and site admins can turn that off. Each user manages only their own personal notifications, and site admins can turn personal notifications off for everyone.</li>
+    <li><strong>Data minimization.</strong> Jira event content is processed in memory and not stored. Comment text sent to Chat is capped at 600 characters and description previews at 300. Personal direct messages go only to users who can view the issue, never about their own changes, and hide the text of comments with restricted visibility. App logs contain the event type, issue key, and delivery counts, not issue content or recipients.</li>
     <li><strong>Retention.</strong> Delivery log entries expire after 7 days. Settings are deleted with the rule or on uninstall.</li>
     <li><strong>Vendor access.</strong> We cannot browse the Customer's Jira site or app storage. Our developer accounts are protected with multi-factor authentication.</li>
     <li><strong>Incident response.</strong> We monitor app errors and respond to security reports sent to support@ean-solutions.com, with breach notice as described in section 8.</li>
@@ -102,7 +102,8 @@
   <table>
     <thead><tr><th>Sub-processor</th><th>Purpose</th><th>Location</th></tr></thead>
     <tbody>
-      <tr><td>Atlassian Pty Ltd and its affiliates</td><td>Hosting, runtime, storage, and logs for the app on Forge</td><td>As set by Atlassian's Forge hosting and the Customer's data residency settings</td></tr>
+      <tr><td>Atlassian Pty Ltd and its affiliates</td><td>Hosting, runtime, storage, and logs for the app on Forge, and storage of users' Google sign-in tokens (Forge external authentication)</td><td>As set by Atlassian's Forge hosting and the Customer's data residency settings</td></tr>
+      <tr><td>Google LLC</td><td>Personal notifications only: delivering direct messages through the Google Chat API as the Spacecast Chat app, and Google sign-in for users who connect</td><td>United States and other locations where Google processes Google Workspace and Google Cloud data</td></tr>
     </tbody>
   </table>
 
