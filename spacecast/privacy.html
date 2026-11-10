@@ -23,7 +23,7 @@
   <p>This policy explains how EAN Solutions LLC ("EAN Solutions," "we," "us") handles data in Spacecast for Google Chat ("Spacecast"), an app for Atlassian Jira Cloud distributed through the Atlassian Marketplace. It applies to the app and to this website.</p>
 
   <div class="card">
-    <strong>In short:</strong> Spacecast runs entirely on Atlassian Forge. It stores only its own configuration and a 7-day delivery log, in Atlassian's hosted storage for your Jira site. It sends issue updates to the Google Chat webhooks your admins add and, for people who turn on personal notifications, as direct messages from the Spacecast app in Google Chat. We do not run our own servers or databases for Spacecast, we do not sell data, and we do not use your Jira content for advertising, analytics, or AI training.
+    <strong>In short:</strong> Spacecast runs entirely on Atlassian Forge. It stores only its own configuration, a 7-day delivery log, and, for rules set to an hourly or daily digest, a short summary of each update until the digest is posted, in Atlassian's hosted storage for your Jira site. It sends issue updates to the Google Chat webhooks your admins add and, for people who turn on personal notifications, as direct messages from the Spacecast app in Google Chat. We do not run our own servers or databases for Spacecast, we do not sell data, and we do not use your Jira content for advertising, analytics, or AI training.
   </div>
 
   <h2>1. Our role</h2>
@@ -46,7 +46,7 @@
       <tr>
         <td><strong>Personal notification links</strong> (only for people who choose Connect Google Chat): Atlassian account ID, Google account email, Google user ID, the name of the person's direct message space with the Spacecast app, when it was linked, link status, the last delivery error, and the person's notification preferences (which events and which projects, issue types, and priorities)</td>
         <td>To send each person the direct messages they asked for, and to show them their settings</td>
-        <td>Forge hosted storage for your site, until the person clicks Disconnect or the app is uninstalled</td>
+        <td>Forge hosted storage for your site, until the person clicks Disconnect, a site admin removes their link, or the app is uninstalled</td>
       </tr>
       <tr>
         <td><strong>Google sign-in authorization</strong> for people who connect</td>
@@ -59,9 +59,14 @@
         <td>Forge hosted storage, deleted automatically after 7 days</td>
       </tr>
       <tr>
+        <td><strong>Digest queue</strong> (only for rules set to an hourly or daily digest): issue key, summary, type, and status; the event type and any status change; the display names of the person who acted and of the new assignee; and a timestamp. No comment or description text</td>
+        <td>To post one summary message per digest instead of a message per update</td>
+        <td>Forge hosted storage, deleted when the digest is posted, when the rule is deleted, or automatically after 8 days if it cannot be delivered</td>
+      </tr>
+      <tr>
         <td><strong>Jira event data</strong>: issue key, summary, type, and status; status changes; comment text; the display name of the person who acted; and the account IDs of the assignee, reporter, watchers, and mentioned users</td>
         <td>To match rules and build the Chat message</td>
-        <td>Processed in memory while handling the event and not stored by Spacecast. The parts included in a message are sent to Google Chat (see section 3)</td>
+        <td>Processed in memory while handling the event and not stored by Spacecast, except the digest queue fields above. The parts included in a message are sent to Google Chat (see section 3)</td>
       </tr>
     </tbody>
   </table>
@@ -105,7 +110,7 @@
   </ul>
 
   <h2>7. Retention and deletion</h2>
-  <p>Delivery log entries expire after 7 days. Deleting a rule deletes its settings and webhook URL. Clicking Disconnect deletes that person's link and preferences. When Spacecast is uninstalled, Atlassian deletes the app's stored data for that site under its Forge data retention rules. Messages already posted in Google Chat stay there until deleted in Google Chat. Licensing records from the Marketplace are kept as long as needed for legal, tax, and accounting purposes.</p>
+  <p>Delivery log entries expire after 7 days. Digest queue entries are deleted once the digest is posted, and after 8 days at most. Deleting a rule deletes its settings, webhook URL, and digest queue. Clicking Disconnect, or a site admin removing the link, deletes that person's link and preferences. When Spacecast is uninstalled, Atlassian deletes the app's stored data for that site under its Forge data retention rules. Messages already posted in Google Chat stay there until deleted in Google Chat. Licensing records from the Marketplace are kept as long as needed for legal, tax, and accounting purposes.</p>
 
   <h2>8. Your rights</h2>
   <p>Depending on where you live, you may have rights to access, correct, delete, or object to the processing of your personal data. Because Spacecast's data lives in your organization's Jira site, please contact your Jira administrator first. We will help your organization respond to any request. You can also email us at the address below.</p>
