@@ -87,10 +87,10 @@
 
   <h2>Annex 1: Technical and organizational measures</h2>
   <ul>
-    <li><strong>Hosting.</strong> Spacecast runs entirely on Atlassian Forge. We operate no servers, databases, or storage of our own for Spacecast.</li>
-    <li><strong>Encryption.</strong> Data is encrypted in transit (TLS) and at rest by Atlassian. Webhook URLs are kept in Forge encrypted secret storage and are never returned to the browser. The Spacecast Chat app's Google service account key is kept in encrypted Forge environment variables. Users' Google sign-in tokens are held by Atlassian's Forge external authentication and are not stored in app storage.</li>
-    <li><strong>Network egress.</strong> The app manifest limits outbound requests to chat.googleapis.com, oauth2.googleapis.com, www.googleapis.com, and accounts.google.com.</li>
-    <li><strong>Least privilege.</strong> The app requests only the Jira scopes read:jira-work, read:jira-user, and storage:app. For personal notifications it requests only the Google scopes openid, userinfo.email, chat.spaces.readonly, and chat.spaces.create from users, and chat.bot for the app itself. It does not read Chat messages.</li>
+    <li><strong>Hosting.</strong> Spacecast runs on Atlassian Forge. We operate no databases or storage of our own for Spacecast. The only component we operate is a stateless sign-in service at auth.ean-solutions.com (hosted on Vercel) used when a user connects personal notifications; it stores no Customer Personal Data, its own logs record only success or failure, and Vercel's standard request logs (IP address and time) are kept briefly under Vercel's retention.</li>
+    <li><strong>Encryption.</strong> Data is encrypted in transit (TLS) and at rest by Atlassian. Webhook URLs are kept in Forge encrypted secret storage and are never returned to the browser. The Spacecast Chat app's Google service account key is kept in encrypted Forge environment variables. Users' Google sign-in tokens are used once by the sign-in service and revoked immediately; they are not stored anywhere. Results passed from the sign-in service to the app are signed with a shared secret and accepted only once, within minutes of the request.</li>
+    <li><strong>Network egress.</strong> The app manifest limits outbound requests to chat.googleapis.com and oauth2.googleapis.com.</li>
+    <li><strong>Least privilege.</strong> The app requests only the Jira scopes read:jira-work, read:jira-user, and storage:app. For personal notifications it requests only the Google scopes openid, email, and chat.spaces.create from users, without offline access, and chat.bot for the app itself. It does not read Chat messages.</li>
     <li><strong>Access control.</strong> Only Jira site admins can manage Spacecast. Project admins can manage rules for their own project only, and site admins can turn that off. Each user manages only their own personal notifications, and site admins can turn personal notifications off for everyone.</li>
     <li><strong>Data minimization.</strong> Jira event content is processed in memory and not stored, except that rules set to an hourly or daily digest queue the issue key, summary, type, status, event type, status change, and the display names of the actor and new assignee until the digest is posted (no comment or description text). Comment text sent to Chat is capped at 600 characters and description previews at 300. Personal direct messages go only to users who can view the issue, never about their own changes, and hide the text of comments with restricted visibility. App logs contain the event type, issue key, and delivery counts, not issue content or recipients.</li>
     <li><strong>Retention.</strong> Delivery log entries expire after 7 days; digest queue entries after 8 days at most. Settings are deleted with the rule or on uninstall.</li>
@@ -102,8 +102,9 @@
   <table>
     <thead><tr><th>Sub-processor</th><th>Purpose</th><th>Location</th></tr></thead>
     <tbody>
-      <tr><td>Atlassian Pty Ltd and its affiliates</td><td>Hosting, runtime, storage, and logs for the app on Forge, and storage of users' Google sign-in tokens (Forge external authentication)</td><td>As set by Atlassian's Forge hosting and the Customer's data residency settings</td></tr>
+      <tr><td>Atlassian Pty Ltd and its affiliates</td><td>Hosting, runtime, storage, and logs for the app on Forge</td><td>As set by Atlassian's Forge hosting and the Customer's data residency settings</td></tr>
       <tr><td>Google LLC</td><td>Personal notifications only: delivering direct messages through the Google Chat API as the Spacecast Chat app, and Google sign-in for users who connect</td><td>United States and other locations where Google processes Google Workspace and Google Cloud data</td></tr>
+      <tr><td>Vercel Inc.</td><td>Personal notifications only: hosting the stateless sign-in service at auth.ean-solutions.com that handles a user's Google sign-in when they connect (no storage)</td><td>United States</td></tr>
     </tbody>
   </table>
 

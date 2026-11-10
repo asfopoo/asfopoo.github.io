@@ -23,7 +23,7 @@
   <p>This policy explains how EAN Solutions LLC ("EAN Solutions," "we," "us") handles data in Spacecast for Google Chat ("Spacecast"), an app for Atlassian Jira Cloud distributed through the Atlassian Marketplace. It applies to the app and to this website.</p>
 
   <div class="card">
-    <strong>In short:</strong> Spacecast runs entirely on Atlassian Forge. It stores only its own configuration, a 7-day delivery log, and, for rules set to an hourly or daily digest, a short summary of each update until the digest is posted, in Atlassian's hosted storage for your Jira site. It sends issue updates to the Google Chat webhooks your admins add and, for people who turn on personal notifications, as direct messages from the Spacecast app in Google Chat. We do not run our own servers or databases for Spacecast, we do not sell data, and we do not use your Jira content for advertising, analytics, or AI training.
+    <strong>In short:</strong> Spacecast runs on Atlassian Forge. It stores only its own configuration, a 7-day delivery log, and, for rules set to an hourly or daily digest, a short summary of each update until the digest is posted, in Atlassian's hosted storage for your Jira site. It sends issue updates to the Google Chat webhooks your admins add and, for people who turn on personal notifications, as direct messages from the Spacecast app in Google Chat. We do not run our own databases for Spacecast. Personal notifications use one small sign-in service we run at auth.ean-solutions.com (hosted by Vercel), which stores nothing. We do not sell data, and we do not use your Jira content for advertising, analytics, or AI training.
   </div>
 
   <h2>1. Our role</h2>
@@ -51,7 +51,7 @@
       <tr>
         <td><strong>Google sign-in authorization</strong> for people who connect</td>
         <td>Used once, when someone clicks Connect or Reconnect, to read their Google account email and ID and to find or open their direct message space with the Spacecast app</td>
-        <td>Held by Atlassian's Forge platform (Forge external authentication), not in Spacecast's storage. Spacecast does not use it to send messages or to read Chat content. The person can revoke it in their Google account settings</td>
+        <td>Not stored. Google sends the sign-in to our sign-in service at auth.ean-solutions.com, which uses it for those two steps and then revokes it with Google, usually within seconds. Spacecast never uses it to send messages or to read Chat content</td>
       </tr>
       <tr>
         <td><strong>Delivery log</strong>: rule name and ID (or "Personal DM"), issue key, event type, success or failure, HTTP status, a short error message, and a timestamp. Entries for personal messages do not say who received them</td>
@@ -77,7 +77,8 @@
   <ul>
     <li><strong>Google, for space notifications.</strong> Messages are sent only to the Google Chat webhook URLs your admins configure (at chat.googleapis.com). Anyone in that Chat space can read them. Google handles them under your organization's Google Workspace agreement and <a href="https://policies.google.com/privacy">Google's privacy policy</a>. Choose the spaces and filters with that in mind.</li>
     <li><strong>Google, for personal notifications.</strong> Direct messages are sent through the Google Chat API as the Spacecast Chat app, using a Google Cloud project that EAN Solutions owns. Connecting uses Google sign-in (accounts.google.com and oauth2.googleapis.com). Google processes this data as our sub-processor (see our <a href="dpa.html">Data Processing Addendum</a>) and within your organization's Google Workspace, where the messages are stored.</li>
-    <li><strong>Atlassian.</strong> Atlassian hosts the app, its storage, its runtime, and Google sign-in tokens under the <a href="https://www.atlassian.com/legal/privacy-policy">Atlassian Privacy Policy</a>. Spacecast's network access is limited by its manifest to chat.googleapis.com, oauth2.googleapis.com, www.googleapis.com, and accounts.google.com.</li>
+    <li><strong>Atlassian.</strong> Atlassian hosts the app, its storage, and its runtime under the <a href="https://www.atlassian.com/legal/privacy-policy">Atlassian Privacy Policy</a>. Spacecast's network access is limited by its manifest to chat.googleapis.com and oauth2.googleapis.com.</li>
+    <li><strong>Vercel, for connecting personal notifications.</strong> Our sign-in service at auth.ean-solutions.com runs on Vercel Inc. (United States). When someone connects, it receives their Google sign-in, their Google account ID and email, and their direct message space name, passes the result to Spacecast in Jira, and keeps none of it. Our own logs record only whether a sign-in succeeded; Vercel's standard request logs (IP address, time, and the request address, which contains no personal data) are kept briefly under Vercel's retention. Vercel processes this as our sub-processor (see the <a href="dpa.html">Data Processing Addendum</a>).</li>
     <li><strong>No one else.</strong> We do not sell, rent, or share data with advertisers, data brokers, or other third parties. We may disclose information if required by law.</li>
   </ul>
 
@@ -102,9 +103,9 @@
 
   <h2>6. Security</h2>
   <ul>
-    <li>Data stays inside Atlassian's Forge platform, with encryption in transit and at rest provided by Atlassian.</li>
+    <li>Stored data stays inside Atlassian's Forge platform, with encryption in transit and at rest provided by Atlassian. The sign-in service stores nothing.</li>
     <li>Webhook URLs are kept in encrypted secret storage and never returned to the browser.</li>
-    <li>The Spacecast Chat app's Google credentials are kept in encrypted Forge environment variables. People's Google sign-in tokens are held by Atlassian and never reach the browser or Spacecast's storage.</li>
+    <li>The Spacecast Chat app's Google credentials are kept in encrypted Forge environment variables. People's Google sign-in tokens are used once by the sign-in service and then revoked; they never reach the browser or Spacecast's storage. Results from the sign-in service are signed and accepted only once, within minutes of the person clicking Connect.</li>
     <li>Only Jira site admins can manage Spacecast. Project admins can manage rules for their own project only, and site admins can turn that off. Each person manages only their own personal notifications, and site admins can turn personal notifications off for everyone.</li>
     <li>The app requests only the Jira scopes it needs: read Jira work, read Jira users, and app storage.</li>
   </ul>
