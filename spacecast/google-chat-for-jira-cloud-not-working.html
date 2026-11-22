@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Chat for Jira Cloud not working: common errors and what to try | Spacecast</title>
+  <meta name="description" content="Fixes people have reported for Google Chat for Jira Cloud setup problems: /jira_settings errors, error codes such as 6PQ3DA and 171E8N on Configure, project search not loading, and what to do when nothing works." />
+  <link rel="canonical" href="https://ean-solutions.com/spacecast/google-chat-for-jira-cloud-not-working.html" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <nav>
+    <a class="brand" href="./">Spacecast</a>
+    <a href="docs.html">Docs</a>
+    <a href="./#support">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+
+  <h1>Google Chat for Jira Cloud not working</h1>
+  <p class="lede">Setup problems with Google's "Google Chat for Jira Cloud" app come up regularly in the Atlassian Community, and the error codes it shows are not documented anywhere. This page collects the symptoms people report and the fixes that worked for some of them.</p>
+
+  <div class="card">
+    <p style="margin:0"><strong>Where this comes from.</strong> We make Spacecast, a different app, and we do not run or support Google's app. The fixes below are ones other users and Atlassian staff have reported in public threads, linked in each section. We cannot promise they work for you.</p>
+  </div>
+
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#configure-code">An error code when you click Configure (6PQ3DA, 171E8N, KWAGX5)</a></li>
+    <li><a href="#jira-settings">/jira_settings fails after you pick a project</a></li>
+    <li><a href="#project-search">Project search or "All projects" does not load</a></li>
+    <li><a href="#no-atlassian-net">Your Jira address does not end in atlassian.net</a></li>
+    <li><a href="#still-stuck">Nothing worked</a></li>
+    <li><a href="#connect">Why this keeps happening</a></li>
+  </ol>
+
+  <h2 id="configure-code">1. An error code when you click Configure</h2>
+  <p><strong>Symptom.</strong> You add the Jira app to a space, click <em>Configure</em>, the browser opens Jira, and a short code such as <code>6PQ3DA</code>, <code>171E8N</code>, or <code>KWAGX5</code> appears, often in the lower left corner.</p>
+  <p><strong>What to try.</strong></p>
+  <ul>
+    <li><strong>Install the Jira side of the app first.</strong> Atlassian Support's answer to <a href="https://community.atlassian.com/forums/discussion/1544284">the 6PQ3DA thread</a> was that Jira shows this kind of error when the Chat app is configured before <em>Google Chat for Jira Cloud</em> is installed on the Jira site. A Jira admin installs it under <em>Apps &gt; Explore more apps</em>, then you click <em>Configure</em> in Chat again.</li>
+    <li><strong>Check you are signed in to the right Jira site</strong> in the browser that opens, with an account that can see the project.</li>
+    <li><strong>Try a direct message with the app.</strong> One person in the same thread found the app worked one to one but not in spaces, which at least tells you the Jira side is installed correctly.</li>
+  </ul>
+  <p>Several people in that thread said the error stayed after installing the app, and one noticed it mostly with team-managed projects. Nobody posted a fix for those cases, and the <a href="https://community.atlassian.com/forums/discussion/2692636">171E8N thread</a> has no answer either.</p>
+
+  <h2 id="jira-settings">2. /jira_settings fails after you pick a project</h2>
+  <p><strong>Symptom.</strong> <code>/jira_connect</code> succeeds, <code>/jira_settings</code> shows the card, the project list loads, and choosing a project returns an error. Spaces you set up earlier keep working; new spaces, or edits to old subscriptions, fail.</p>
+  <p><strong>What to try.</strong></p>
+  <ul>
+    <li>Uninstall and reinstall the app in Jira, then run <code>/jira_connect</code> and <code>/jira_settings</code> again. Some people report this clears it. The person who opened <a href="https://community.atlassian.com/forums/discussion/3121579">the 2025 thread</a> had already tried it without success, and two others there had the same problem with no fix.</li>
+    <li>Use the support link shown with the error and include the hash and trace ID it gives you. In <a href="https://community.atlassian.com/forums/discussion/2704931">another thread</a>, one person's setup started working after they wrote to support, though they never got a reply.</li>
+  </ul>
+
+  <h2 id="project-search">3. Project search or "All projects" does not load</h2>
+  <p><strong>Symptom.</strong> The configuration page opens, but the project picker stays empty or the "All projects" option does nothing.</p>
+  <p><strong>What to try.</strong> Allow third-party cookies for the configuration page, or try a different browser. A reviewer on the app's Marketplace listing reported in February 2026 that allowing third-party cookies made project search work. The page loads inside a frame from another domain, which stricter browser privacy settings block.</p>
+
+  <h2 id="no-atlassian-net">4. Your Jira address does not end in atlassian.net</h2>
+  <p>Google's app works with Jira Cloud only. If your Jira runs on your own domain as Jira Data Center or Server, the app cannot connect, and you will see an error code after <em>Configure</em>, as in <a href="https://community.atlassian.com/forums/discussion/1688614">this thread</a>. You need an integration that supports Data Center, or a webhook from your own automation.</p>
+
+  <h2 id="still-stuck">5. Nothing worked</h2>
+  <p>If you only need notifications from Jira into Chat spaces, you have options that do not depend on Google's app:</p>
+  <ul>
+    <li><strong>No app at all.</strong> In the Chat space, add an incoming webhook under <em>Apps &amp; integrations &gt; Webhooks</em>. In Jira, create an Automation rule with a <em>Send web request</em> action that posts a JSON body such as <code>{"text": "{{issue.key}} {{issue.summary}}"}</code> to that URL. This is fine for a handful of simple alerts.</li>
+    <li><strong>A Forge app.</strong> Several apps on the Atlassian Marketplace send Jira updates to Google Chat. Ours, <a href="https://marketplace.atlassian.com/apps/3949353638/spacecast-google-chat-notifications-for-jira">Spacecast</a>, is set up in Jira with one rule per space, has no per-user connect step, and is free for sites with up to 10 users. See <a href="google-chat-for-jira-cloud-alternative.html">how Google's setup maps to Spacecast rules</a>.</li>
+  </ul>
+  <p>If you rely on creating issues from Chat or on slash commands, Spacecast does not do that, so check what each app offers before switching.</p>
+
+  <h2 id="connect">6. Why this keeps happening</h2>
+  <p>The Marketplace listing for Google Chat for Jira Cloud shows its latest version as 1.1.0-AC, released in November 2021. It is built on Atlassian Connect, the older app framework. Atlassian <a href="https://developer.atlassian.com/platform/adopting-forge-from-connect/connect-eos-customer-messaging/">ends support for Connect on 31 January 2027</a> and says Connect features can be deprecated with little notice after that. Jira and browsers have both changed a great deal since 2021, so an app that has not been updated is more likely to hit problems like the ones above.</p>
+
+  <div class="card" id="support">
+    <h2 style="margin-top:0">Found a fix that is not listed?</h2>
+    <p>Email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a> and we will add it here.</p>
+  </div>
+
+  <footer>
+    &copy; 2026 EAN Solutions LLC. Spacecast is not affiliated with or endorsed by Google or Atlassian. Google Chat is a trademark of Google LLC. Atlassian and Jira are trademarks of Atlassian Pty Ltd.
+  </footer>
+</main>
+</body>
+</html>
