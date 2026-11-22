@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Chat for Jira Cloud alternative: moving off the Connect app | Spacecast</title>
+  <meta name="description" content="Google's Google Chat for Jira Cloud app runs on Atlassian Connect, which leaves support on 31 January 2027. What that means for Jira admins and how to move your Chat notifications to a Forge app in about ten minutes." />
+  <link rel="canonical" href="https://ean-solutions.com/spacecast/google-chat-for-jira-cloud-alternative.html" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will Google Chat for Jira Cloud stop working on 31 January 2027?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not necessarily on that day. Atlassian says Connect stops being a supported platform from 31 January 2027, that installed Connect apps are not removed, and that Connect features can then be deprecated with little notice. An app that has not moved to Forge may stop working properly at some point after that date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I import my Google Chat for Jira Cloud settings into another app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The subscriptions you created with /jira_settings are stored by Google's app and there is no export. You recreate them, one rule per Chat space."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I run Spacecast next to Google Chat for Jira Cloud?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. They are independent. Most teams run both in one space for a day or two, confirm the new messages look right, and then remove the old subscription."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<main>
+  <nav>
+    <a class="brand" href="./">Spacecast</a>
+    <a href="docs.html">Docs</a>
+    <a href="./#support">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+
+  <h1>Moving off Google Chat for Jira Cloud</h1>
+  <p class="lede">Google's "Google Chat for Jira Cloud" app is built on Atlassian Connect, and its last release was in November 2021. Atlassian ends support for Connect on 31 January 2027. This page explains what that means if your team relies on the app, and how to move your Jira notifications to Spacecast.</p>
+
+  <h2>What is changing</h2>
+  <p>Atlassian is replacing Connect, its older app framework, with Forge. According to <a href="https://developer.atlassian.com/platform/adopting-forge-from-connect/connect-eos-customer-messaging/">Atlassian's developer documentation</a>, Connect is no longer a supported platform from 31 January 2027. Three points matter for admins:</p>
+  <ul>
+    <li><strong>Installed Connect apps are not removed on that date.</strong> Atlassian has said customers will not lose access to them.</li>
+    <li><strong>After that date nothing is guaranteed.</strong> Atlassian will fix only critical security problems in Connect, and says Connect features can be deprecated with little notice.</li>
+    <li><strong>A Connect app can no longer be updated as a Connect app.</strong> To keep going, its vendor has to ship a Forge version.</li>
+  </ul>
+  <p>The Marketplace listing for Google Chat for Jira Cloud shows version 1.1.0-AC, released 11 November 2021, as a Connect app. We have not seen an announcement from Google about a Forge version. If one is published, staying put may be the simplest choice. If you would rather not wait to find out, the move is small.</p>
+
+  <h2>How to check what you have installed</h2>
+  <ol>
+    <li>In Jira, go to <em>Settings &gt; Apps &gt; Manage apps</em>.</li>
+    <li>Find <em>Google Chat for Jira Cloud</em> in the list of user-installed apps.</li>
+    <li>In Google Chat, type <code>/jira_settings</code> in each space that gets Jira messages and note the projects and events it is subscribed to. That list is what you will recreate.</li>
+  </ol>
+
+  <h2>What maps to what</h2>
+  <table>
+    <thead>
+      <tr><th>Google Chat for Jira Cloud</th><th>Spacecast</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>A space subscribed with <code>/jira_settings</code></td><td>A rule that points at that space's webhook</td></tr>
+      <tr><td>Project selection</td><td>Project keys on the rule, plus an optional JQL filter</td></tr>
+      <tr><td>Event selection</td><td>Created, moved, assigned, commented, mentioned, with an optional list of statuses</td></tr>
+      <tr><td>All issue types or none</td><td>Filter by issue type and priority, or by JQL</td></tr>
+      <tr><td>Each person connects with <code>/jira_connect</code></td><td>Nothing per person for space messages. Personal direct messages are opt-in.</td></tr>
+      <tr><td>Settings live in Google Chat</td><td>Settings live in Jira, under <em>Settings &gt; Apps</em>, or per project for project admins</td></tr>
+    </tbody>
+  </table>
+  <p><strong>What Spacecast does not do.</strong> Spacecast sends notifications from Jira to Google Chat. It does not create or edit issues from Chat, and it does not respond to slash commands. If your team depends on those, Spacecast is not a full replacement.</p>
+
+  <h2>Move in about ten minutes</h2>
+  <ol>
+    <li>Install Spacecast from the <a href="https://marketplace.atlassian.com/apps/3949353638/spacecast-google-chat-notifications-for-jira">Atlassian Marketplace</a>. It is free for Jira sites with up to 10 users.</li>
+    <li>In the Google Chat space, open <em>Apps &amp; integrations &gt; Webhooks</em> and add a webhook named <em>Spacecast</em>. Copy its URL.</li>
+    <li>In Jira, go to <em>Settings &gt; Apps &gt; Spacecast for Google Chat</em>, add a rule, paste the webhook URL, choose the projects and events you noted earlier, and press <em>Test</em>.</li>
+    <li>Let both apps post for a day. When the Spacecast messages look right, remove the old subscription with <code>/jira_settings</code> in that space.</li>
+    <li>Repeat for each space. When none are left, uninstall Google Chat for Jira Cloud under <em>Manage apps</em>.</li>
+  </ol>
+  <p>The <a href="docs.html">documentation</a> covers every rule option, digests, and troubleshooting.</p>
+
+  <h2>Questions</h2>
+  <h3>Will Google Chat for Jira Cloud stop working on 31 January 2027?</h3>
+  <p>Not necessarily on that day. Atlassian says installed Connect apps are not removed, but that Connect is unsupported from then on and its features can be deprecated with little notice. An app that has not moved to Forge may stop working properly at some point afterwards.</p>
+  <h3>Can I import my existing settings?</h3>
+  <p>No. The subscriptions are stored by Google's app and there is no export, so you recreate them one rule per space. Spacecast has templates for the common setups.</p>
+  <h3>Can I run both at once?</h3>
+  <p>Yes. They are independent, and running both for a day or two is the safest way to switch.</p>
+  <h3>Does my Google Workspace admin need to do anything?</h3>
+  <p>Incoming webhooks must be allowed for Google Chat, which is the default. Personal direct messages use the Spacecast Chat app from the <a href="https://workspace.google.com/marketplace/app/spacecast_for_jira/1006726347696">Google Workspace Marketplace</a>; if your admin only allows approved Chat apps, ask them to allow it.</p>
+  <h3>Is Spacecast the only option?</h3>
+  <p>No. For one or two simple alerts, a Jira Automation rule with a <em>Send web request</em> action and a Chat webhook works without any app. Several other Forge apps on the Atlassian Marketplace also send Jira updates to Google Chat. Spacecast is a fit when you want per-space rules with filters, one thread per issue, digests, and personal direct messages.</p>
+
+  <div class="card" id="support">
+    <h2 style="margin-top:0">Need a hand moving?</h2>
+    <p>Email <a href="mailto:support@ean-solutions.com">support@ean-solutions.com</a> with the spaces and projects you have today and we will help you map them to rules. Never send us a webhook URL: it contains a secret key.</p>
+  </div>
+
+  <footer>
+    &copy; 2026 EAN Solutions LLC. Spacecast is not affiliated with or endorsed by Google or Atlassian. Google Chat is a trademark of Google LLC. Atlassian and Jira are trademarks of Atlassian Pty Ltd.
+  </footer>
+</main>
+</body>
+</html>
